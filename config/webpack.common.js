@@ -119,7 +119,7 @@ module.exports = {
 
   plugins: [
     //生成 css @types文件
-    new webpack.WatchIgnorePlugin([/css\.d\.ts$/]),
+    new webpack.WatchIgnorePlugin({paths:[/css\.d\.ts$/]}),
 
     new CleanWebpackPlugin(),
 

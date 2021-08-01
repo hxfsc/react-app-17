@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --config ./config/webpack.dev.js",
-    "build": "webpack-dev-server --config ./config/webpack.prod.js"
+    "dev": "webpack serve --config config/webpack.dev.js",
+    "build": "webpack serve --config config/webpack.prod.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/react": "^17.0.15",
+    "@types/react-dom": "^17.0.9",
     "autoprefixer": "^10.3.1",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "css-loader": "^6.2.0",
@@ -24,6 +26,7 @@
     "postcss-loader": "^6.1.1",
     "postcss-preset-env": "^6.7.0",
     "precss": "^4.0.0",
+    "react-hot-loader": "^4.13.0",
     "sass-loader": "^12.1.0",
     "ts-import-plugin": "^1.6.7",
     "ts-loader": "^9.2.4",
