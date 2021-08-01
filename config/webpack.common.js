@@ -31,7 +31,7 @@ module.exports = {
       "@/": path.resolve(__dirname, "../src"),
       "@/utils": path.resolve(__dirname, "../src/utils"),
       "@/routers": path.resolve(__dirname, "../src/routers"),
-      "@/pages": path.resolve(__dirname, "../src/pages"),
+      "@/pages": path.resolve(__dirname, "../src/pages")
     }
   },
 
@@ -55,9 +55,6 @@ module.exports = {
       {
         test: /\.less$/,
         include: () => {
-          if (isWin32) {
-            return "/"
-          }
           return "/node_modules/antd"
         },
         use: [
@@ -66,7 +63,9 @@ module.exports = {
           {
             loader: "less-loader",
             options: {
-              javascriptEnabled: true
+              lessOptions: {
+                javascriptEnabled: true
+              }
             }
           }
         ]
@@ -119,7 +118,7 @@ module.exports = {
 
   plugins: [
     //生成 css @types文件
-    new webpack.WatchIgnorePlugin({paths:[/css\.d\.ts$/]}),
+    new webpack.WatchIgnorePlugin({ paths: [/css\.d\.ts$/] }),
 
     new CleanWebpackPlugin(),
 

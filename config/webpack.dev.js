@@ -1,5 +1,5 @@
 const common = require("./webpack.common")
-const {merge} = require("webpack-merge")
+const { merge } = require("webpack-merge")
 const webpack = require("webpack")
 
 module.exports = merge(common, {
@@ -7,7 +7,7 @@ module.exports = merge(common, {
   devtool: "source-map",
 
   plugins: [
-   // new webpack.NamedModulesPlugin(),
+    // new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       "process.env": {
