@@ -7,6 +7,8 @@ import styles from "./index.scss"
 
 const size: "large" = "large"
 
+const tt = "tt"
+
 const Login = () => {
   const onFinish = () => {}
   return (

@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 //过滤抽离样式文件警告信息
 const FilterWarningsPlugin = require("webpack-filter-warnings-plugin")
 //清除生成项目文件
-const { CleanWebpackPlugin } = require("clean-webpack-plugin")
+// const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 
 //antd 按需配置设置
 const tsAntdConfig = require("./antd.common")
@@ -23,6 +23,7 @@ const webpack = require("webpack")
 module.exports = {
   entry: [path.resolve(__dirname, "../src/index.tsx")],
   output: {
+    clean: true,
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "../dist"),
     publicPath: "/"
@@ -125,7 +126,7 @@ module.exports = {
     //生成 css @types文件
     new webpack.WatchIgnorePlugin({ paths: [/css\.d\.ts$/] }),
 
-    new CleanWebpackPlugin(),
+    // new CleanWebpackPlugin(),
 
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "../src/index.html")

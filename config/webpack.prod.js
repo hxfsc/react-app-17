@@ -6,6 +6,9 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = merge(common, {
   mode: "production",
+  output:{
+    filename: '[name].[contenthash].bundle.js',
+  },
   plugins: [
     new webpack.DefinePlugin({
       "process.env": {
