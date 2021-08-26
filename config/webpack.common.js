@@ -12,6 +12,9 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 //antd 按需配置设置
 const tsAntdConfig = require("./antd.common")
 
+const chalk = require("chalk")
+const ProgressBarPlugin = require("progress-bar-webpack-plugin")
+
 //win平台下 node_modules目录下less文件不作排除操作
 const isWin32 = os.platform() === "win32"
 
@@ -31,9 +34,14 @@ module.exports = {
       "@/": path.resolve(__dirname, "../src"),
       "@/utils": path.resolve(__dirname, "../src/utils"),
       "@/routers": path.resolve(__dirname, "../src/routers"),
+      "@/assets": path.resolve(__dirname, "../src/assets"),
       "@/pages": path.resolve(__dirname, "../src/pages"),
       "@/components": path.resolve(__dirname, "../src/components")
     }
+  },
+
+  cache: {
+    type: "filesystem" // 使用文件缓存
   },
 
   module: {
@@ -97,27 +105,23 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, "css-loader"]
       },
       {
-        test: /\.(jpg|jpeg|png|svg|gif)$/,
+        test: /\.(jpe?g|png|svg|gif)$/i,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[hash:8].[name].[ext]",
-              limit: 10240
-            }
-          }
-        ]
+        type: "asset/resource"
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         exclude: /node_modules/,
-        use: ["file-loader"]
+        type: "asset/resource"
       }
     ]
   },
 
   plugins: [
+    new ProgressBarPlugin({
+      format: ` :msg [:bar] ${chalk.green.bold(":percent")} (:elapsed s)`
+    }),
+
     //生成 css @types文件
     new webpack.WatchIgnorePlugin({ paths: [/css\.d\.ts$/] }),
 

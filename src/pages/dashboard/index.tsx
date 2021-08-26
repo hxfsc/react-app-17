@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Route, Switch } from "react-router-dom"
+import { Route } from "react-router-dom"
 
 import { Layout } from "antd"
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons"
@@ -9,12 +9,13 @@ const { Header, Sider, Content } = Layout
 import { SiderMenu } from "@/components/SiderMenu"
 
 import Table from "@/pages/table"
+import Permission from "@/pages/permission"
+import Role from "@/pages/role"
 
 import styles from "./index.scss"
 
-export const Dashboard = () => {
+const Dashboard = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false)
-
   const onMenuCollapsed = (collapsed: boolean): void => {
     setCollapsed(collapsed)
   }
@@ -33,11 +34,13 @@ export const Dashboard = () => {
           })}
         </Header>
         <Content className={styles.main}>
-          <Switch>
-            <Route path="/" component={Table} />
-          </Switch>
+          <Route path="/" exact component={Table} />
+          <Route path="/role" exact component={Role} />
+          <Route path="/permission" exact component={Permission} />
         </Content>
       </Layout>
     </Layout>
   )
 }
+
+export default Dashboard

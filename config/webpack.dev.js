@@ -2,27 +2,39 @@ const common = require("./webpack.common")
 const { merge } = require("webpack-merge")
 const webpack = require("webpack")
 
-module.exports = merge(common, {
-  mode: "development",
-  devtool: "source-map",
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin")
+const smp = new SpeedMeasurePlugin()
 
-  plugins: [
-    // new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({
-      "process.env": {
-        environment: JSON.stringify("dev")
+module.exports = merge(
+  common,
+  smp.wrap({
+    mode: "development",
+    devtool: "eval-cheap-module-source-map",
+
+    output: {
+      pathinfo: false
+    },
+
+    plugins: [
+      // new webpack.NamedModulesPlugin(),
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.DefinePlugin({
+        "process.env": {
+          environment: JSON.stringify("dev")
+        }
+      })
+    ],
+
+    devServer: {
+      hot: true,
+      contentBase: "./dist",
+      port: 3000,
+      historyApiFallback: true,
+
+      overlay: {
+        warnings: true,
+        errors: true
       }
-    })
-  ],
-
-  devServer: {
-    hot: true,
-    port: 3000,
-    historyApiFallback: true,
-    overlay: {
-      warnings: true,
-      errors: true
     }
-  }
-})
+  })
+)

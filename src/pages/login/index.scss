@@ -1,0 +1,23 @@
+.main {
+  width: 100vw;
+  height: 100vh;
+  background: #f0f2f5 url(~@/assets/images/login_bg.svg) no-repeat center center / contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.login-form {
+  max-width: 300px;
+}
+.login-form-forgot {
+  float: right;
+}
+.ant-col-rtl .login-form-forgot {
+  float: left;
+}
+.login-form-button {
+  width: 100%;
+}
+
