@@ -17,7 +17,7 @@ module.exports = merge(
 
     plugins: [
       // new webpack.NamedModulesPlugin(),
-      new webpack.HotModuleReplacementPlugin(),
+      // new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
         "process.env": {
           environment: JSON.stringify("dev")
