@@ -20,7 +20,7 @@ export const Dashboard = () => {
     <Layout className={styles.dashboard}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className={styles.logo} />
-        <Menu />
+        <Menu collapsed={collapsed} />
       </Sider>
       <Layout className={styles["site-layout"]}>
         <Header className={styles.header}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from "@ant-design/icons"
 import { Menu } from "antd"
 
@@ -11,8 +11,8 @@ const rootSubmenuKeys = ["sub1", "sub2", "sub4"]
 const defaultOpenKeys = ["sub1"]
 const defaultSelectedKeys = ["1"]
 
-export default () => {
-  const [openKeys, setOpenKeys] = useState(["sub1"])
+export default (props: { collapsed: boolean }) => {
+  const [openKeys, setOpenKeys] = useState(defaultOpenKeys)
 
   const onOpenChange = (keys: string[]) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1)
@@ -24,11 +24,24 @@ export default () => {
     }
   }
 
-  const [selectedKeys, setSelectedKeys] = useState<string[]>([])
+  const [selectedKeys, setSelectedKeys] = useState<string[]>(defaultSelectedKeys)
 
   const onSelectedKeysChange = ({ selectedKeys }: MenuProps) => {
     setSelectedKeys(selectedKeys)
   }
+
+  type prevMenuKeysProps = { openKeys: string[]; selectedKeys: string[] }
+  const [prevMenuKeys, setPrevMenuKeys] = useState<prevMenuKeysProps>({ openKeys: defaultOpenKeys, selectedKeys: defaultSelectedKeys })
+
+  useEffect(() => {
+    if (props.collapsed) {
+      setPrevMenuKeys({ openKeys, selectedKeys })
+      return
+    }
+
+    setOpenKeys(prevMenuKeys.openKeys)
+    setSelectedKeys(prevMenuKeys.selectedKeys)
+  }, [props.collapsed])
 
   return (
     <Menu
