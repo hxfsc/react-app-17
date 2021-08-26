@@ -11,6 +11,7 @@ import { SiderMenu } from "@/components/SiderMenu"
 import Table from "@/pages/table"
 import Permission from "@/pages/permission"
 import Role from "@/pages/role"
+import Account from "@/pages/user/account"
 
 import styles from "./index.scss"
 
@@ -37,6 +38,7 @@ const Dashboard = () => {
           <Route path="/" exact component={Table} />
           <Route path="/role" exact component={Role} />
           <Route path="/permission" exact component={Permission} />
+          <Route path="/user/account" exact component={Account} />
         </Content>
       </Layout>
     </Layout>
