@@ -1,22 +1,16 @@
 const path = require("path")
-const os = require("os")
 //html文件模板
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 //抽离样式文件
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 //过滤抽离样式文件警告信息
 const FilterWarningsPlugin = require("webpack-filter-warnings-plugin")
-//清除生成项目文件
-// const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 
 //antd 按需配置设置
 const tsAntdConfig = require("./antd.common")
 
 const chalk = require("chalk")
 const ProgressBarPlugin = require("progress-bar-webpack-plugin")
-
-//win平台下 node_modules目录下less文件不作排除操作
-const isWin32 = os.platform() === "win32"
 
 const webpack = require("webpack")
 
@@ -71,7 +65,7 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           "css-loader",
           {
-            loader: 'thread-loader',
+            loader: "thread-loader",
             options: {
               workerParallelJobs: 2
             }
@@ -104,7 +98,7 @@ module.exports = {
           },
           { loader: "postcss-loader" },
           {
-            loader: 'thread-loader',
+            loader: "thread-loader",
             options: {
               workerParallelJobs: 2
             }
@@ -137,8 +131,6 @@ module.exports = {
 
     //生成 css @types文件
     new webpack.WatchIgnorePlugin({ paths: [/css\.d\.ts$/] }),
-
-    // new CleanWebpackPlugin(),
 
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "../src/index.html")
