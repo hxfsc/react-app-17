@@ -11,7 +11,7 @@ const rootSubmenuKeys = ["sub1", "sub2", "sub4"]
 const defaultOpenKeys = ["sub1"]
 const defaultSelectedKeys = ["1"]
 
-export default (props: { collapsed: boolean }) => {
+export const SiderMenu = (props: { collapsed: boolean }) => {
   const [openKeys, setOpenKeys] = useState(defaultOpenKeys)
 
   const onOpenChange = (keys: string[]) => {
@@ -68,11 +68,10 @@ export default (props: { collapsed: boolean }) => {
           <Menu.Item key="8">Option 8</Menu.Item>
         </SubMenu>
       </SubMenu>
-      <SubMenu key="sub4" icon={<SettingOutlined />} title="Navigation Three">
-        <Menu.Item key="9">Option 9</Menu.Item>
-        <Menu.Item key="10">Option 10</Menu.Item>
-        <Menu.Item key="11">Option 11</Menu.Item>
-        <Menu.Item key="12">Option 12</Menu.Item>
+      <SubMenu key="sub4" icon={<SettingOutlined />} title={"管理中心"}>
+        <Menu.Item key="9">用户管理</Menu.Item>
+        <Menu.Item key="10">角色管理</Menu.Item>
+        <Menu.Item key="11">权限管理</Menu.Item>
       </SubMenu>
     </Menu>
   )

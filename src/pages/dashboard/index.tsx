@@ -1,11 +1,14 @@
 import React, { useState } from "react"
+import { Route, Switch } from "react-router-dom"
 
 import { Layout } from "antd"
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons"
 
 const { Header, Sider, Content } = Layout
 
-import Menu from "@/components/Menu"
+import { SiderMenu } from "@/components/SiderMenu"
+
+import Table from "@/pages/table"
 
 import styles from "./index.scss"
 
@@ -20,7 +23,7 @@ export const Dashboard = () => {
     <Layout className={styles.dashboard}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className={styles.logo} />
-        <Menu collapsed={collapsed} />
+        <SiderMenu collapsed={collapsed} />
       </Sider>
       <Layout className={styles["site-layout"]}>
         <Header className={styles.header}>
@@ -29,7 +32,11 @@ export const Dashboard = () => {
             onClick: () => onMenuCollapsed(!collapsed)
           })}
         </Header>
-        <Content className={styles.main}>Content</Content>
+        <Content className={styles.main}>
+          <Switch>
+            <Route path="/" component={Table} />
+          </Switch>
+        </Content>
       </Layout>
     </Layout>
   )
