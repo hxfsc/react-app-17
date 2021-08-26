@@ -71,6 +71,12 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           "css-loader",
           {
+            loader: 'thread-loader',
+            options: {
+              workerParallelJobs: 2
+            }
+          },
+          {
             loader: "less-loader",
             options: {
               lessOptions: {
@@ -97,6 +103,12 @@ module.exports = {
             }
           },
           { loader: "postcss-loader" },
+          {
+            loader: 'thread-loader',
+            options: {
+              workerParallelJobs: 2
+            }
+          },
           { loader: "sass-loader", options: { sourceMap: true } }
         ]
       },
