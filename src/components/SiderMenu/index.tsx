@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from "@ant-design/icons"
+import { Link } from "react-router-dom"
+
 import { Menu } from "antd"
 
 const { SubMenu } = Menu
@@ -69,9 +71,15 @@ export const SiderMenu = (props: { collapsed: boolean }) => {
         </SubMenu>
       </SubMenu>
       <SubMenu key="sub4" icon={<SettingOutlined />} title={"管理中心"}>
-        <Menu.Item key="9">用户管理</Menu.Item>
-        <Menu.Item key="10">角色管理</Menu.Item>
-        <Menu.Item key="11">权限管理</Menu.Item>
+        <Menu.Item key="9">
+          <Link to={"/user/account"}>用户管理</Link>
+        </Menu.Item>
+        <Menu.Item key="10">
+          <Link to={"/user/role"}>角色管理</Link>
+        </Menu.Item>
+        <Menu.Item key="11">
+          <Link to={"/user/permission"}>权限管理</Link>
+        </Menu.Item>
       </SubMenu>
     </Menu>
   )

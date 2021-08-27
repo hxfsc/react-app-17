@@ -5,8 +5,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Dashboard from "@/pages/dashboard"
 import Login from "@/pages/login"
 
-
-
 export default () => {
   return (
     <Router>

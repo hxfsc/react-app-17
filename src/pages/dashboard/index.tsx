@@ -1,17 +1,17 @@
-import React, { useState } from "react"
+import React, { useState, lazy, Suspense } from "react"
 import { Route } from "react-router-dom"
 
-import { Layout } from "antd"
+import { Layout, Skeleton } from "antd"
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons"
 
 const { Header, Sider, Content } = Layout
 
 import { SiderMenu } from "@/components/SiderMenu"
 
-import Table from "@/pages/table"
-import Permission from "@/pages/permission"
-import Role from "@/pages/role"
-import Account from "@/pages/user/account"
+const Table = lazy(() => import("@/pages/table"))
+const Permission = lazy(() => import("@/pages/permission"))
+const Role = lazy(() => import("@/pages/role"))
+const Account = lazy(() => import("@/pages/user/account"))
 
 import styles from "./index.scss"
 
@@ -34,11 +34,14 @@ const Dashboard = () => {
             onClick: () => onMenuCollapsed(!collapsed)
           })}
         </Header>
+
         <Content className={styles.main}>
-          <Route path="/" exact component={Table} />
-          <Route path="/role" exact component={Role} />
-          <Route path="/permission" exact component={Permission} />
-          <Route path="/user/account" exact component={Account} />
+          <Suspense fallback={<Skeleton active />}>
+            <Route path="/" exact component={Table} />
+            <Route path="/user/role" exact component={Role} />
+            <Route path="/user/permission" exact component={Permission} />
+            <Route path="/user/account" exact component={Account} />
+          </Suspense>
         </Content>
       </Layout>
     </Layout>
