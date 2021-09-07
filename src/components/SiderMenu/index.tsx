@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react"
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from "@ant-design/icons"
+import { AppstoreOutlined, MailOutlined, SettingOutlined, RocketOutlined, AreaChartOutlined, BlockOutlined, DashboardOutlined, UngroupOutlined, TableOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
+
+import { routers } from "@/routers/index"
+
+import { RouteMenuProps } from "@/routers/interface"
 
 import { Menu } from "antd"
 
@@ -12,6 +16,19 @@ const rootSubmenuKeys = ["sub1", "sub2", "sub4"]
 
 const defaultOpenKeys = ["sub1"]
 const defaultSelectedKeys = ["1"]
+
+interface IconProps extends Pick<RouteMenuProps, "component"> {
+  icon?: string
+  component?: any
+}
+
+const icons: IconProps[] = [
+  { icon: "AreaChartOutlined", component: <AreaChartOutlined /> },
+  { icon: "BlockOutlined", component: <BlockOutlined /> },
+  { icon: "DashboardOutlined", component: <DashboardOutlined /> },
+  { icon: "UngroupOutlined", component: <UngroupOutlined /> },
+  { icon: "TableOutlined", component: <TableOutlined /> }
+]
 
 export const SiderMenu = (props: { collapsed: boolean }) => {
   const [openKeys, setOpenKeys] = useState(defaultOpenKeys)
@@ -45,6 +62,42 @@ export const SiderMenu = (props: { collapsed: boolean }) => {
     setSelectedKeys(prevMenuKeys.selectedKeys)
   }, [props.collapsed])
 
+  const renderIcon = (item: IconProps): React.ReactElement => {
+    if (!item.icon) {
+      return <RocketOutlined />
+    }
+    return icons.find((list: IconProps) => list.icon === item.icon)?.component || <RocketOutlined />
+  }
+
+  const renderMenu = (router: RouteMenuProps[]): React.ReactNode => {
+    const menu = router.map((item: RouteMenuProps): React.ReactNode => {
+      if (item.children && item.children.length > 0) {
+        return (
+          <Menu.SubMenu
+            key={item.path}
+            title={
+              <span>
+                {renderIcon(item)}
+                <span>{item.title ?? "导航"}</span>{" "}
+              </span>
+            }
+          >
+            {renderMenu(item.children)}
+          </Menu.SubMenu>
+        )
+      }
+      return (
+        <Menu.Item key={item.path}>
+          <Link to={item.path}>
+            {item.parent && renderIcon(item)}
+            <span>{item.title ?? "导航"}</span>
+          </Link>
+        </Menu.Item>
+      )
+    })
+    return menu
+  }
+
   return (
     <Menu
       mode="inline"
@@ -56,31 +109,7 @@ export const SiderMenu = (props: { collapsed: boolean }) => {
       onSelect={(keys: MenuProps) => onSelectedKeysChange(keys)}
       onOpenChange={onOpenChange}
     >
-      <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
-        <Menu.Item key="1">Option 1</Menu.Item>
-        <Menu.Item key="2">Option 2</Menu.Item>
-        <Menu.Item key="3">Option 3</Menu.Item>
-        <Menu.Item key="4">Option 4</Menu.Item>
-      </SubMenu>
-      <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
-        <Menu.Item key="5">Option 5</Menu.Item>
-        <Menu.Item key="6">Option 6</Menu.Item>
-        <SubMenu key="sub3" title="Submenu">
-          <Menu.Item key="7">Option 7</Menu.Item>
-          <Menu.Item key="8">Option 8</Menu.Item>
-        </SubMenu>
-      </SubMenu>
-      <SubMenu key="sub4" icon={<SettingOutlined />} title={"管理中心"}>
-        <Menu.Item key="9">
-          <Link to={"/user/account"}>用户管理</Link>
-        </Menu.Item>
-        <Menu.Item key="10">
-          <Link to={"/user/role"}>角色管理</Link>
-        </Menu.Item>
-        <Menu.Item key="11">
-          <Link to={"/user/permission"}>权限管理</Link>
-        </Menu.Item>
-      </SubMenu>
+      {renderMenu(routers)}
     </Menu>
   )
 }
