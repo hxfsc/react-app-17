@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react"
-import { AppstoreOutlined, MailOutlined, SettingOutlined, RocketOutlined, AreaChartOutlined, BlockOutlined, DashboardOutlined, UngroupOutlined, TableOutlined } from "@ant-design/icons"
+import { RocketOutlined, AreaChartOutlined, BlockOutlined, DashboardOutlined, UngroupOutlined, TableOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
-
-import { routers } from "@/routers/index"
 
 import { RouteMenuProps } from "@/routers/interface"
 
+import { routers, flatToMenu, routerMatchMenu, routerMatchBreadcrumb } from "@/routers/index"
+import { urlPath, urlPathToList } from "@/utils/urlPathParams"
+
 import { Menu } from "antd"
 
-const { SubMenu } = Menu
 import { MenuProps } from "rc-menu"
 
 // submenu keys of first level
@@ -96,6 +96,20 @@ export const SiderMenu = (props: { collapsed: boolean }) => {
       )
     })
     return menu
+  }
+
+  useEffect(() => {
+    const keys = openSelectKey()
+    setOpenKeys(keys.openKeys)
+    setSelectedKeys(keys.selectedKeys)
+  }, [])
+
+  const openSelectKey = () => {
+    const url = urlPath()
+    const urlList = urlPathToList(url)
+    const flatMenu = flatToMenu(routers)
+    const selectedKeys = routerMatchMenu(flatMenu, urlList)
+    return { openKeys: urlList, selectedKeys }
   }
 
   return (
