@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 import { RouteMenuProps } from "@/routers/interface"
 
-import { routers, flatToMenu, routerMatchMenu, routerMatchBreadcrumb } from "@/routers/index"
+import { routers, flatToMenu, routerMatchMenu } from "@/routers/index"
 import { urlPath, urlPathToList } from "@/utils/urlPathParams"
 
 import { Menu } from "antd"
@@ -12,10 +12,10 @@ import { Menu } from "antd"
 import { MenuProps } from "rc-menu"
 
 // submenu keys of first level
-const rootSubmenuKeys = ["sub1", "sub2", "sub4"]
+const rootSubmenuKeys = routers.map((item) => item.path)
 
-const defaultOpenKeys = ["sub1"]
-const defaultSelectedKeys = ["1"]
+const defaultOpenKeys = []
+const defaultSelectedKeys = []
 
 interface IconProps extends Pick<RouteMenuProps, "component"> {
   icon?: string
@@ -43,28 +43,30 @@ export const SiderMenu = (props: { collapsed: boolean }) => {
     }
   }
 
-  const [selectedKeys, setSelectedKeys] = useState<string[]>(defaultSelectedKeys)
-
-  const onSelectedKeysChange = ({ selectedKeys }: MenuProps) => {
-    setSelectedKeys(selectedKeys)
+  const openSelectKey = () => {
+    const url = urlPath()
+    const urlList = urlPathToList(url)
+    const flatMenu = flatToMenu(routers)
+    const selectedKeys = routerMatchMenu(flatMenu, urlList)
+    return { openKeys: urlList, selectedKeys }
   }
 
-  type prevMenuKeysProps = { openKeys: string[]; selectedKeys: string[] }
-  const [prevMenuKeys, setPrevMenuKeys] = useState<prevMenuKeysProps>({ openKeys: defaultOpenKeys, selectedKeys: defaultSelectedKeys })
+  const [selectedKeys, setSelectedKeys] = useState<string[]>(defaultSelectedKeys)
+
+  const onSelectedKeysChange = ({ keyPath }) => {
+    setOpenKeys(keyPath)
+    setSelectedKeys(keyPath)
+  }
 
   useEffect(() => {
-    if (props.collapsed) {
-      setPrevMenuKeys({ openKeys, selectedKeys })
-      return
-    }
-
-    setOpenKeys(prevMenuKeys.openKeys)
-    setSelectedKeys(prevMenuKeys.selectedKeys)
+    const keys = openSelectKey()
+    setSelectedKeys(keys.selectedKeys.reverse())
+    setOpenKeys(keys.openKeys.reverse())
   }, [props.collapsed])
 
   const renderIcon = (item: IconProps): React.ReactElement => {
     if (!item.icon) {
-      return <RocketOutlined />
+      return null
     }
     return icons.find((list: IconProps) => list.icon === item.icon)?.component || <RocketOutlined />
   }
@@ -104,14 +106,6 @@ export const SiderMenu = (props: { collapsed: boolean }) => {
     setSelectedKeys(keys.selectedKeys)
   }, [])
 
-  const openSelectKey = () => {
-    const url = urlPath()
-    const urlList = urlPathToList(url)
-    const flatMenu = flatToMenu(routers)
-    const selectedKeys = routerMatchMenu(flatMenu, urlList)
-    return { openKeys: urlList, selectedKeys }
-  }
-
   return (
     <Menu
       mode="inline"
@@ -120,7 +114,7 @@ export const SiderMenu = (props: { collapsed: boolean }) => {
       openKeys={openKeys}
       defaultSelectedKeys={defaultSelectedKeys}
       selectedKeys={selectedKeys}
-      onSelect={(keys: MenuProps) => onSelectedKeysChange(keys)}
+      onSelect={({ keyPath }) => onSelectedKeysChange({ keyPath })}
       onOpenChange={onOpenChange}
     >
       {renderMenu(routers)}

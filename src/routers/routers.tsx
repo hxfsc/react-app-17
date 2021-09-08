@@ -10,57 +10,62 @@ export const routers: RouteMenuProps[] = [
   {
     title: "预览",
     path: "dashboard",
+    icon: "DashboardOutlined",
     children: [
       {
         title: "分析页",
-        path: "account",
+        path: "analysis",
         component: DashboardAccount
       },
       {
         title: "监控页",
-        path: "role"
+        path: "monitor"
       },
       {
         title: "工作台",
-        path: "permission"
+        path: "workspace"
       }
     ]
   },
   {
     title: "列表",
-    path: "/table",
+    path: "table",
+    icon: "TableOutlined",
     children: [
       {
         title: "简单表格",
-        path: "/simple"
+        path: "simple"
       },
       {
         title: "高级表格",
-        path: "/advanced"
+        path: "advanced"
       },
       {
         title: "表格搜索",
-        path: "/search"
+        path: "search",
+        children: [{ title: "高级", path: "advanced" }]
       }
     ]
   },
   {
     title: "详情页",
-    path: "/profile",
+    path: "profile",
+    icon: "AreaChartOutlined",
     children: [
       {
         title: "简单",
-        path: "/simple"
+        path: "simple"
       },
       {
         title: "高级",
-        path: "/advanced"
+        path: "advanced"
       }
     ]
   },
   {
     title: "管理中心",
     path: "account",
+    icon: "UngroupOutlined",
     children: [
       {
         title: "用户管理",
