@@ -6,6 +6,9 @@ const AccountUser = lazy(() => import("@/pages/account/user"))
 const AccountRole = lazy(() => import("@/pages/account/role"))
 const AccountPermisson = lazy(() => import("@/pages/account/permission"))
 
+const TableSimple = lazy(() => import("@/pages/table/simple"))
+const TableAdvanced = lazy(() => import("@/pages/table/advanced"))
+
 export const routers: RouteMenuProps[] = [
   {
     title: "预览",
@@ -34,11 +37,13 @@ export const routers: RouteMenuProps[] = [
     children: [
       {
         title: "简单表格",
-        path: "simple"
+        path: "simple",
+        component: TableSimple
       },
       {
         title: "高级表格",
-        path: "advanced"
+        path: "advanced",
+        component: TableAdvanced
       },
       {
         title: "表格搜索",

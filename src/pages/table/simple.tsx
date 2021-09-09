@@ -1,23 +1,24 @@
-import React, { useState } from "react"
-
-import { Table, Tooltip, Form, Input, FormItemProps, Row, Col } from "antd"
+import React, { useState, useEffect } from "react"
+import useSWR from "swr"
+import { Table, Tooltip, Form, Input, FormItemProps, Row, Col, Button, Space } from "antd"
+import { Link } from "react-router-dom"
 
 const columns = [
   {
-    title: "Name",
+    title: "姓名",
     dataIndex: "name",
     key: "name",
-    render: (text) => <a>{text}</a>,
+    render: (text) => text,
     width: 150
   },
   {
-    title: "Age",
+    title: "年龄",
     dataIndex: "age",
     key: "age",
     width: 80
   },
   {
-    title: "Address",
+    title: "地址",
     dataIndex: "address",
     key: "address 1",
     ellipsis: {
@@ -30,52 +31,22 @@ const columns = [
     )
   },
   {
-    title: "Long Column Long Column Long Column",
-    dataIndex: "address",
-    key: "address 2",
+    title: "操作",
+    dataIndex: "operation",
+    key: "address 1",
     ellipsis: {
       showTitle: false
     },
-    render: (address) => (
-      <Tooltip placement="topLeft" title={address}>
-        {address}
-      </Tooltip>
-    )
-  },
-  {
-    title: "Long Column Long Column",
-    dataIndex: "address",
-    key: "address 3",
-    ellipsis: {
-      showTitle: false
-    },
-    render: (address) => (
-      <Tooltip placement="topLeft" title={address}>
-        {address}
-      </Tooltip>
-    )
-  },
-  {
-    title: "Long Column",
-    dataIndex: "address",
-    key: "address 4",
-    ellipsis: {
-      showTitle: false
-    },
-    render: (address) => (
-      <Tooltip placement="topLeft" title={address}>
-        {address}
-      </Tooltip>
+    render: () => (
+      <>
+        <Space>
+          <Link to="">编辑</Link>
+          <Link to="">删除</Link>
+        </Space>
+      </>
     )
   }
 ]
-
-const data = Array.from({ length: 100 }).map((item, index: number) => ({
-  key: index,
-  name: "John Brown",
-  age: index % 32,
-  address: `New York No. ${index} Lake Park, New York No. ${index} Lake Park`
-}))
 
 const formItemLayout: FormItemProps = {
   labelAlign: "right",
@@ -83,7 +54,17 @@ const formItemLayout: FormItemProps = {
   wrapperCol: { span: 16 }
 }
 
+const getData = () => {
+  const { data, error } = useSWR("http://localhost:3002/users")
+  return {
+    users: data,
+    loading: !error && !data
+  }
+}
+
 export default () => {
+  const { users, loading } = getData()
+
   return (
     <div>
       <div>
@@ -122,7 +103,7 @@ export default () => {
         </Form>
       </div>
       <div>
-        <Table columns={columns} dataSource={data} size="small" bordered />
+        <Table loading={loading} columns={columns} dataSource={users} size="small" bordered />
       </div>
     </div>
   )
