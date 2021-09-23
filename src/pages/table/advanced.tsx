@@ -9,7 +9,7 @@ const columns = [
     dataIndex: "name",
     key: "name",
     render: (text) => text,
-    fixed:'left',
+    fixed: "left",
     width: 150
   },
   {
@@ -50,7 +50,7 @@ const columns = [
       showTitle: false
     },
     render: (text) => <Tooltip title={text}>{text}</Tooltip>
-  },
+  }
 ]
 
 const getData = () => {
@@ -66,7 +66,7 @@ const TableAdvanced = () => {
   const { users = [], loading = true } = getData()
   return (
     <div>
-      <Table bordered size={"small"} loading={loading} dataSource={users} columns={columns} scroll={{x:1500}} />
+      <Table bordered size={"small"} loading={loading} dataSource={users} columns={columns} scroll={{ x: 1500 }} />
     </div>
   )
 }

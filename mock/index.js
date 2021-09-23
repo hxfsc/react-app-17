@@ -23,5 +23,24 @@ module.exports = () => {
 
   data.advanced = advanced
 
+
+  const statistic = Array.from({length:4}).map(()=>({
+    value: faker.finance.amount(),
+    name: faker.internet.userName()
+  }))
+
+  data.statistic = statistic
+
+
+  const live = ({
+    cpu: faker.random.number({max:110}),
+    meun: faker.random.number({max:1000}),
+    address: `${faker.address.secondaryAddress()} ${faker.address.country()} ${faker.address.streetAddress()}`,
+    remark: faker.hacker.verb(),
+    version: "v0.1"
+  })
+
+  data.live = live
+
   return data
 }

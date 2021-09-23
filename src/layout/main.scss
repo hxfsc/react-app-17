@@ -1,4 +1,4 @@
-.dashboard{
+.dashboard {
   min-height: 100vh;
   height: 100%;
 }
@@ -21,21 +21,20 @@
   background: rgba(255, 255, 255, 0.3);
 }
 
-.header{
+.header {
   background: #fff;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  .user{
+  .user {
     display: flex;
     align-items: center;
     margin-right: 20px;
     cursor: pointer;
   }
 
-  .notification{
+  .notification {
     margin-right: 30px;
   }
 }
@@ -46,3 +45,7 @@
   padding: 24px;
 }
 
+.page-header {
+  background: #FFF;
+  box-shadow: inset 0px 1px 9px -10px #1c2833;
+}
