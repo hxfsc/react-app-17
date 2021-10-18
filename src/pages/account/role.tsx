@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useState } from "react"
 import { Tree } from "antd"
+import { CarryOutOutlined, FormOutlined } from "@ant-design/icons"
 
 const treeData = [
   {
@@ -9,12 +10,11 @@ const treeData = [
       {
         title: "parent 1-0",
         key: "0-0-0",
-        disabled: true,
+        icon: <CarryOutOutlined />,
         children: [
           {
             title: "leaf",
-            key: "0-0-0-0",
-            disableCheckbox: true
+            key: "0-0-0-0"
           },
           {
             title: "leaf",
@@ -25,7 +25,7 @@ const treeData = [
       {
         title: "parent 1-1",
         key: "0-0-1",
-        children: [{ title: <span style={{ color: "#1890ff" }}>sss</span>, key: "0-0-1-0" }]
+        children: [{ title: "test......", key: "0-0-1-0" }]
       }
     ]
   },
@@ -36,12 +36,10 @@ const treeData = [
       {
         title: "parent 2-0",
         key: "1-0-0",
-        disabled: true,
         children: [
           {
             title: "leaf",
-            key: "1-0-0-0",
-            disableCheckbox: true
+            key: "1-0-0-0"
           },
           {
             title: "leaf",
@@ -54,23 +52,12 @@ const treeData = [
 ]
 
 export default () => {
-  const onSelect = (selectedKeys: React.Key[], info: unknown) => {
+  const [showLine, setShowLine] = useState<boolean | { showLeafIcon: boolean }>({ showLeafIcon: false })
+  const [showIcon, setShowIcon] = useState<boolean>(false)
+
+  const onSelect = (selectedKeys: React.Key[], info: any) => {
     console.log("selected", selectedKeys, info)
   }
 
-  const onCheck = (checkedKeys: React.Key[], info: unknown) => {
-    console.log("onCheck", checkedKeys, info)
-  }
-
-  return (
-    <Tree
-      checkable
-      defaultExpandedKeys={["0-0-0", "0-0-1"]}
-      defaultSelectedKeys={["0-0-0", "0-0-1"]}
-      defaultCheckedKeys={["0-0-0", "0-0-1"]}
-      onSelect={onSelect}
-      onCheck={onCheck}
-      treeData={treeData}
-    />
-  )
+  return <Tree checkable defaultExpandedKeys={["0-0-0", "0-0-1"]} onSelect={onSelect} treeData={treeData} showLine={showLine} showIcon={showIcon} />
 }
