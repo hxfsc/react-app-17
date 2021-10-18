@@ -69,35 +69,39 @@ export default () => {
     <div>
       <div>
         <Form layout={"horizontal"}>
-          <Row>
-            <Col span={"6"}>
+          <Row gutter={12}>
+            <Col span={6}>
               <Form.Item label={"表单一"} {...formItemLayout}>
                 <Input />
               </Form.Item>
             </Col>
 
-            <Col span={"6"}>
+            <Col span={6}>
               <Form.Item label={"表单一二三"} {...formItemLayout}>
                 <Input />
               </Form.Item>
             </Col>
 
-            <Col span={"6"}>
+            <Col span={6}>
               <Form.Item label={"表单一"} {...formItemLayout}>
                 <Input />
               </Form.Item>
             </Col>
 
-            <Col span={"6"}>
+            <Col span={6}>
               <Form.Item label={"表单一"} {...formItemLayout}>
                 <Input />
               </Form.Item>
             </Col>
 
-            <Col span={"6"}>
+            <Col span={6}>
               <Form.Item label={"表单一在一在"} {...formItemLayout}>
                 <Input />
               </Form.Item>
+            </Col>
+
+            <Col span={6}>
+              <Button type={"primary"}>查询</Button>
             </Col>
           </Row>
         </Form>
