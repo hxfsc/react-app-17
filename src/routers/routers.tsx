@@ -1,7 +1,8 @@
 import React, { lazy } from "react"
 import { RouteMenuProps } from "./interface"
 
-const DashboardAccount = lazy(() => import("@/pages/dashboard"))
+const DashboardAnalysis = lazy(() => import("@/pages/dashboard/analysis"))
+const DashboardWorkspace = lazy(() => import("@/pages/dashboard/workspace"))
 const AccountUser = lazy(() => import("@/pages/account/user"))
 const AccountRole = lazy(() => import("@/pages/account/role"))
 const AccountPermisson = lazy(() => import("@/pages/account/permission"))
@@ -19,7 +20,7 @@ export const routers: RouteMenuProps[] = [
       {
         title: "分析页",
         path: "analysis",
-        component: DashboardAccount
+        component: DashboardAnalysis
       },
       {
         title: "监控页",
@@ -27,7 +28,8 @@ export const routers: RouteMenuProps[] = [
       },
       {
         title: "工作台",
-        path: "workspace"
+        path: "workspace",
+        component: DashboardWorkspace
       }
     ]
   },

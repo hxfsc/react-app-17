@@ -26,7 +26,7 @@ async function getLiveInfo(url: string): Promise<any> {
   return await request({ url, method: "GET" })
 }
 
-const Dashboard = () => {
+const Analysis = () => {
   const { data = [], error } = useSWR<dataProps[]>("/statistic", getData)
 
   const { data: liveData, error: liveError } = useSWR<liveDataProps>("/live", getLiveInfo)
@@ -67,4 +67,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default Analysis
